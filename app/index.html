@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>SmashPop</title>
+    <link rel="stylesheet" href="styles/main.css" type="text/css">
+</head>
+<body>
+<script src="scripts/weasel.js"></script>
+<script src="scripts/game.js"></script>
+<script src="scripts/view.js"></script>
+<script>
+    var gameView = new GameView();
+</script>
+<div class="wrapper">
+    <div class="titlebox">
+        <div class="title">
+            Whack-a-Monster
+        </div>
+        <div class="scoreboard">
+            <div class="timeleft">
+                <span class="label">Time: </span>
+                <span class="value" id="time">60</span>
+            </div>
+            <div class="score">
+                <span class="label">Score: </span>
+                <span class="value" id="score">0000000</span>
+            </div>
+        </div>
+    </div>
+    <div id="startBox">
+        <div class="start" onclick="gameView.start()">
+            Start
+        </div>
+    </div>
+    <div id="gameOverBox" class="hidden">
+        <div class="gameOver">GAME OVER</div>
+        <div class="finalScore">
+            <span class="label">Final Score:</span>
+            <span class="value" id="finalscore">0</span>
+        </div>
+        <div class="restart" onclick="gameView.restart()">
+            Restart
+        </div>
+    </div>
+    <div id="gameBoard" class="hidden">
+    </div>
+</div>
+<script>
+    window.addEventListener('keydown', gameView.whackDetector.bind(gameView), false);
+    window.onload =
+            gameView.initGame('score', 'time', 'startBox', 'gameBoard', 'gameOverBox', 'finalscore');
+</script>
+</body>
+</html>

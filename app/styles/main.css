@@ -1,0 +1,197 @@
+body{
+    background-color: white;
+    padding: 0;
+    margin: 0;
+}
+
+.weasel-container{
+    width: 180px;
+    height: 220px;
+    padding: 0;
+    margin:  20px 80px;
+    display: inline;
+    float: left;
+    z-index: 1;
+    position: relative;
+    overflow-y: hidden;
+}
+
+.weasel-alt-container{
+    width: 180px;
+    height: 220px;
+    padding: 0;
+    margin:  20px 80px 20px 240px;
+    display: inline;
+    float: left;
+    z-index: 1;
+    position: relative;
+    overflow-y: hidden;
+}
+
+.top-hole, .bottom-hole{
+    height: 90px;
+    width: 180px;
+    background-color: #ccc;
+    text-indent: -9999px;
+    position: relative;
+    transition: background-color 0.25s;
+}
+
+.top-hole {
+    margin: 40px auto 0 auto;
+    border-radius:  90px 90px 0 0;
+    z-index: 2;
+}
+
+.bottom-hole {
+    margin: 0 auto;
+    border-radius:  0 0 90px 90px ;
+    z-index: 4;
+}
+
+.blanket {
+    height: 90px;
+    width: 180px;
+    margin: 0 auto;
+    background-color: white;
+    text-indent: -9999px;
+    z-index: 4;
+    position: relative;
+}
+
+.weasel {
+    z-index: 3;
+    position: relative;
+    width: 180px;
+    height: 180px;
+    text-align: center;
+    transition: margin-top 0.5s;
+}
+
+.weasel.up {
+    margin: -220px auto 0 auto;
+}
+
+.weasel.down {
+    margin: 0 auto 0 auto;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top:0;
+}
+
+#gameBoard, #startBox, #gameOverBox{
+    width: 1024px;
+    height: 643px;
+    padding: 0;
+    margin: 0 auto;
+    background-color: white;
+}
+
+.start, .restart {
+    padding: 0 0 30px 0;
+    font-family: "gubblebum-blocky", monospace;
+    font-weight: bolder;
+    font-size: 100px;
+    color: red;
+    text-align: center;
+    border: 4px solid gainsboro;
+    height: 100px;
+    background-color: #303030;
+}
+
+.start {
+    margin: 250px auto;
+    width: 320px;
+}
+
+.hit{
+    background-color: red;
+}
+
+.miss{
+    background-color: blue;
+}
+
+.restart {
+    margin: 30px auto;
+    width: 450px;
+}
+
+
+.hidden {
+    display: none;
+}
+
+.titlebox {
+    width: 1010px;
+    height: 125px;
+    border: solid 7px crimson;
+    margin: 0 auto;
+    padding: 0;
+    border-radius: 3px;
+    background-color: #303030;
+}
+
+.title{
+    font-family: "gubblebum-blocky", monospace;
+    width: 722px;
+    height: 100%;
+    display: inline;
+    float: left;
+    font-weight: bolder;
+    font-size: 76px;
+    text-align: center;
+    vertical-align: bottom;
+    margin: 15px 0 0 0;
+    padding: 0;
+    color: fuchsia;
+}
+
+.scoreboard{
+    width: 264px;
+    height: 106px;
+    border-left: solid 7px crimson;
+    border-top: 0;
+    border-bottom: 0;
+    border-right: 0;
+    display: inline;
+    float: right;
+    margin: 0;
+    padding: 16px 8px 8px 8px;
+}
+
+.timeleft, .score {
+    font-family: consolas, courier, menlo, monaco, monospace;
+    color: fuchsia;
+    line-height: 42px;
+}
+
+.label{
+    text-align: right;
+    font-size: 28px;
+}
+
+.value{
+    text-align: left;
+    font-size: 38px;
+    font-weight: bolder;
+}
+
+#gameOverBox{
+    padding: 45px;
+}
+
+.gameOver, .finalScore{
+    font-family: consolas, courier, menlo, monaco, monospace;
+    color: fuchsia;
+    line-height: 120px;
+    font-size: 110px;
+    text-align: center;
+    text-wrap: none;
+}

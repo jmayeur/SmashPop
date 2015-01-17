@@ -1,0 +1,20 @@
+{
+  "name": "SmashPop",
+  "version": "1.0.0",
+  "description": "A Simple Vanilla JS version of Whack-a-Mole",
+  "main": "index.html",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "nodeunit ./test/main.js"
+  },
+  "keywords": [
+    "Game",
+    "Vanilla",
+    "JS",
+    "Whack-a-Mole"
+  ],
+  "author": "Jeff Mayeur",
+  "license": "ISC"
+}
