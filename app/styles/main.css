@@ -93,6 +93,38 @@ body{
     background-color: white;
 }
 
+.instructions{
+    margin: 50px auto;
+    height: 100px;
+    padding: 0;
+    width: 320px;
+}
+
+.keymap {
+    font-family: consolas, courier, menlo, monaco, monospace;
+    color: red;
+    line-height: 36px;
+}
+
+.key, .keyvalue{
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    width: 150px
+}
+
+.key{
+    font-size: 34px;
+    font-weight: bolder;
+    text-align: right;
+}
+
+.keyvalue{
+    font-size: 30px;
+    font-weight: normal;
+    text-align: left;
+}
+
 .start, .restart {
     padding: 0 0 30px 0;
     font-family: "gubblebum-blocky", monospace;
@@ -106,7 +138,7 @@ body{
 }
 
 .start {
-    margin: 250px auto;
+    margin: 105px auto;
     width: 320px;
 }
 
