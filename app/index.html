@@ -9,9 +9,15 @@
 <script src="scripts/weasel.js"></script>
 <script src="scripts/game.js"></script>
 <script src="scripts/view.js"></script>
+<script src="scripts/audio.js"></script>
 <script>
     var gameView = new GameView();
 </script>
+<audio id="smashAudio_src" preload="auto" name="smash">
+    <source src="audio/smash.ogg" type="audio/ogg">
+    <source src="audio/smash.wav" type="audio/wav">
+    <source src="audio/smash_.mp3" type="audio/mpeg">
+</audio>
 <div class="wrapper">
     <div class="titlebox">
         <div class="title">
@@ -69,6 +75,7 @@
     </div>
 </div>
 <script>
+    window.addEventListener('mousedown', gameView.clickDetector.bind(gameView), false);
     window.addEventListener('keydown', gameView.whackDetector.bind(gameView), false);
     window.onload =
             gameView.initGame('score', 'time', 'startBox', 'gameBoard', 'gameOverBox', 'finalscore', 'smashAudio');

@@ -1,13 +1,14 @@
 
 var GameView = function GameView(){
     this.game = null;
+    this.audioHelper = new AudioHelper();
 };
 
 GameView.prototype.initGame = function initGame(
     scoreTextElementId, timeTextElementId, startBoxElementId,
-    gameBoardElementId, gameOverBoxElementId, finalScoreElementId,
-    smashAudioELementId
+    gameBoardElementId, gameOverBoxElementId, finalScoreElementId
 ) {
+    this.audioHelper.initAudio();
     var self = this;
     this.scoreDisplay = document.getElementById(scoreTextElementId);
     this.timeDisplay = document.getElementById(timeTextElementId);
@@ -15,7 +16,6 @@ GameView.prototype.initGame = function initGame(
     this.gameBoard = document.getElementById(gameBoardElementId);
     this.gameOverBox = document.getElementById(gameOverBoxElementId);
     this.finalScoreDisplay = document.getElementById(finalScoreElementId);
-    this.smashAudio = document.getElementById(smashAudioELementId);
 
     this.game = new Game('Me');
     this.game.init();
@@ -37,15 +37,10 @@ GameView.prototype.initGame = function initGame(
     this.game.on(Game.EVENTKEYS.weaselHit, function(src, weasel){
         var top = document.getElementById('holeTop_' + weasel.id);
         var bottom = document.getElementById('holeBottom_' + weasel.id);
-        var aud = document.getElementById('smashAudio_' + weasel.id);
-        aud.currentTime = 0;
-        aud.play();
+        self.audioHelper.play();
         top.classList.add('hit');
         bottom.classList.add('hit');
         setTimeout(function(){
-            var pn = aud.parentNode;
-            pn.removeChild(aud);
-            pn.appendChild(util.ca('smashAudio_' + weasel.id));
             top.classList.remove('hit');
             bottom.classList.remove('hit');
         }, 500);
@@ -79,13 +74,11 @@ GameView.prototype.initGame = function initGame(
         var holeTop = util.md('holeTop_' + id, 'top-hole');
         var holeBottom = util.md('holeBottom_' + id, 'bottom-hole');
         var holeBottomBox = util.md('holeBottomBox_' + id, 'blanket');
-        var aud = util.ca('smashAudio_' + id);
 
         var img = new Image();
         img.src = './images/' + id + '.png';
         var imgWrapper = util.md('imgWrapper_' + id, ['weasel', 'down']);
         imgWrapper.appendChild(img);
-        container.appendChild(aud);
         container.appendChild(holeTop);
         holeBottomBox.appendChild(holeBottom);
         container.appendChild(holeBottomBox);
@@ -99,12 +92,18 @@ GameView.prototype.initGame = function initGame(
 };
 
 GameView.prototype.start = function start(){
+    if(this.game.playing){
+        return;
+    }
     this.startBox.classList.add('hidden');
     this.gameBoard.classList.remove('hidden');
     this.game.start();
 };
 
 GameView.prototype.restart = function restart(){
+    if(this.game.playing){
+        return;
+    }
     this.gameOverBox.classList.add('hidden');
     this.gameBoard.classList.remove('hidden');
     this.game.restart();
@@ -165,6 +164,12 @@ GameView.prototype.whackDetector = function whackDetector(e){
     }
 };
 
+GameView.prototype.clickDetector = function clickDetector(e){
+    if (!this.game.playing){
+        this.start();
+    }
+};
+
 GameView.prototype.setUpDown = function setUpDown(el, state){
     if(state === Weasel.POSITION.down){
         el.classList.remove('up');
@@ -191,16 +196,7 @@ var util = {
           }
       }
       return div;
-  },
-    ca: function createAudio(id){
-        var aud = document.createElement('audio');
-        aud.id = id;
-        var src = document.createElement('source');
-        src.src = 'audio/smash.mp3';
-        src.type = 'audio/mpeg';
-        aud.appendChild(src);
-        return aud;
-    }
+  }
 };
 
 
