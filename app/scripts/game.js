@@ -10,6 +10,7 @@ var Game = function Game(userOptions){
     }
     this.gameDurationTicks = 0;
     this.playing = false;
+    this.highScore = 0;
     this.events = {};
     this.weasels = {};
     this.animating = false;
@@ -58,32 +59,11 @@ Game.prototype.addWeasel = function addWeasel(id){
 
 Game.prototype.init = function init(){
     this.weasels = [];
-    this.remainingMS = this.options.gameLengthSeconds * 1000;
-    this.hits = 0;
-    this.misses = 0;
-    this.lastTickTime = 0;
-    this.updateScore(0-this.score);
-    this.updateRemainingTime(0);
     for(var i=1;i<=this.options.weaselCount;i++){
         this.addWeasel(i);
     }
 
     this.initDone = true;
-};
-
-Game.prototype.restart = function restart(){
-    if (!this.initDone){
-        this.init();
-    }
-    else{
-        this.remainingMS = this.options.gameLengthSeconds * 1000;
-        this.hits = 0;
-        this.misses = 0;
-        this.lastTickTime = 0;
-        this.updateScore(0-this.score);
-        this.updateRemainingTime(0);
-    }
-    this.start();
 };
 
 Game.prototype.start = function start(){
@@ -93,6 +73,11 @@ Game.prototype.start = function start(){
     this.startTicks = Date.now();
     this.lastTickTime = this.startTicks;
     this.playing = true;
+    this.remainingMS = this.options.gameLengthSeconds * 1000;
+    this.hits = 0;
+    this.misses = 0;
+    this.updateScore(0-this.score);
+    this.updateRemainingTime(0);
     this.startAnimation();
     setTimeout(this.timerTick.bind(this), 1000);
     this.trigger(Game.EVENTKEYS.started, true);

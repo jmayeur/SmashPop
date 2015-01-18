@@ -95,18 +95,10 @@ GameView.prototype.start = function start(){
     if(this.game.playing){
         return;
     }
+    this.gameOverBox.classList.add('hidden');
     this.startBox.classList.add('hidden');
     this.gameBoard.classList.remove('hidden');
     this.game.start();
-};
-
-GameView.prototype.restart = function restart(){
-    if(this.game.playing){
-        return;
-    }
-    this.gameOverBox.classList.add('hidden');
-    this.gameBoard.classList.remove('hidden');
-    this.game.restart();
 };
 
 GameView.prototype.formatScore = function formatScore(score){
@@ -167,6 +159,8 @@ GameView.prototype.whackDetector = function whackDetector(e){
 GameView.prototype.clickDetector = function clickDetector(e){
     if (!this.game.playing){
         this.start();
+        e.preventDefault();
+        e.stopPropagation();
     }
 };
 
