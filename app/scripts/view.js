@@ -152,7 +152,12 @@ GameView.prototype.whackDetector = function whackDetector(e){
     }
     if(whacked_id){
         killProp();
-        this.game.whack(whacked_id);
+        if(!this.game.playing){
+            this.start();
+        }
+        else{
+            this.game.whack(whacked_id);
+        }
     }
 };
 
