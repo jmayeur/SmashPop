@@ -5,7 +5,8 @@ var GameView = function GameView(){
 
 GameView.prototype.initGame = function initGame(
     scoreTextElementId, timeTextElementId, startBoxElementId,
-    gameBoardElementId, gameOverBoxElementId, finalScoreElementId
+    gameBoardElementId, gameOverBoxElementId, finalScoreElementId,
+    smashAudioELementId
 ) {
     var self = this;
     this.scoreDisplay = document.getElementById(scoreTextElementId);
@@ -14,6 +15,7 @@ GameView.prototype.initGame = function initGame(
     this.gameBoard = document.getElementById(gameBoardElementId);
     this.gameOverBox = document.getElementById(gameOverBoxElementId);
     this.finalScoreDisplay = document.getElementById(finalScoreElementId);
+    this.smashAudio = document.getElementById(smashAudioELementId);
 
     this.game = new Game('Me');
     this.game.init();
@@ -35,10 +37,15 @@ GameView.prototype.initGame = function initGame(
     this.game.on(Game.EVENTKEYS.weaselHit, function(src, weasel){
         var top = document.getElementById('holeTop_' + weasel.id);
         var bottom = document.getElementById('holeBottom_' + weasel.id);
-
+        var aud = document.getElementById('smashAudio_' + weasel.id);
+        aud.currentTime = 0;
+        aud.play();
         top.classList.add('hit');
         bottom.classList.add('hit');
         setTimeout(function(){
+            var pn = aud.parentNode;
+            pn.removeChild(aud);
+            pn.appendChild(util.ca('smashAudio_' + weasel.id));
             top.classList.remove('hit');
             bottom.classList.remove('hit');
         }, 500);
@@ -72,11 +79,13 @@ GameView.prototype.initGame = function initGame(
         var holeTop = util.md('holeTop_' + id, 'top-hole');
         var holeBottom = util.md('holeBottom_' + id, 'bottom-hole');
         var holeBottomBox = util.md('holeBottomBox_' + id, 'blanket');
+        var aud = util.ca('smashAudio_' + id);
+
         var img = new Image();
         img.src = './images/' + id + '.png';
-
         var imgWrapper = util.md('imgWrapper_' + id, ['weasel', 'down']);
         imgWrapper.appendChild(img);
+        container.appendChild(aud);
         container.appendChild(holeTop);
         holeBottomBox.appendChild(holeBottom);
         container.appendChild(holeBottomBox);
@@ -182,7 +191,16 @@ var util = {
           }
       }
       return div;
-  }
+  },
+    ca: function createAudio(id){
+        var aud = document.createElement('audio');
+        aud.id = id;
+        var src = document.createElement('source');
+        src.src = 'audio/smash.mp3';
+        src.type = 'audio/mpeg';
+        aud.appendChild(src);
+        return aud;
+    }
 };
 
 
